@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User page</title>
+
+<script type="text/javascript" src="jquery-3.4.1.js"></script>
+
+
+
+<script src="bootstrap.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<script type="text/javascript" src="user.js"></script>
+
+
+<style>
+body {
+	font-family: Arial;
+	background-color: #0000ff;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: #1ad1ff;
+}
+
+label {
+	padding: 5px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'reservation')">Reservation of ticket</button>
+  <button class="tablinks" onclick="openCity(event, 'reviewReservations')">Reservations</button>
+  <button class="tablinks" onclick="openCity(event, 'search')">Flight search</button>
+  <button class="tablinks" onclick="openCity(event, 'filter')">Flight filter</button>
+  <button class="tablinks" onclick="openCity(event, 'profile')">Profile</button>
+  <button class="tablinks" onclick="openCity(event, 'logout')" id="logout">Log out</button>
+</div>
+
+<div id="reservation" class="tabcontent">
+  <div class="container">
+      <!-- Horizonatal Form -->
+			<h2>Reservation of ticket</h2>
+          <form id="searchFlightsForReservation">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2" for="start">Start</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="start" required placeholder="Enter starting point">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="departure">Departure</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="departure" required placeholder="Enter departure">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="dateOfFlight">Date of flight</label>
+					<div class="col-sm-5">
+						<input type="date" class="form-control" required id="dateOfFlight" placeholder="Enter date of flight">
+					</div>
+			</div>
+			
+			
+
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Search flights" />
+            </div>
+            
+          </form>
+          
+          
+        <h3 id="messageFlightsFound" style="display: none">No flights found!</h3>  
+          
+        <table id="flightsForReservation" class="table table-bordered table-hover" style="display: none" bgcolor="#d9d9d9">
+		<thead>
+			<th>Flight number</th>
+			<th>Price</th>
+			<th>Airplane model</th>
+			<th>Number of seats in first class</th>
+			<th>Number of seats in business class</th>
+			<th>Number of seats in economic class</th>
+			<th>Class of flight</th>
+			<th>Choose flight</th>
+		</thead>
+		<tbody>
+		</tbody>
+				   
+	</table>
+	
+	
+		
+		   	
+			   	<div id="reservationOfFlight" style="display: none">
+			   		<form id="reservationFlight">
+			   		    <div class="form-group row">
+							<label class="control-label col-sm-2" for="classType">Class of seat</label>
+							<div class="col-sm-5">
+									<select id="classType" required class="form-control">
+								  		<option value="FIRST" selected>FIRST</option>
+								  		<option value="BUSINESS">BUSINESS</option>
+								  		<option value="ECONOMIC">ECONOMIC</option>
+									</select>
+							</div>
+						</div>
+				
+						<div class="form-group row">
+							<label class="control-label col-sm-2" for="passengersNumber">Number of passengers</label>
+							<div class="col-sm-5">
+								<input type="number" class="form-control" id="passengersNumber" required placeholder="Enter number of passengers">
+							</div>
+						</div>
+						
+						<div class="col-xs-10 col-xs-offset-2">
+              				<input type="submit" class="btn btn-primary" value="Book a flight" />
+            			</div>
+            			
+            		</form>
+			   	</div>
+		   	
+		   	
+	
+          
+
+    </div>
+</div>
+
+<div id="reviewReservations" class="tabcontent">
+  	<h2>Reservations</h2>
+  	
+  	<h3 id="messageReservationsFound" style="display: none">No reservations found!</h3>  
+	
+  	<table id="reservations" class="table table-bordered table-hover" bgcolor="#d9d9d9">
+		<thead>
+			<th>ID</th>
+			<th>flight number</th>
+			<th>date and time</th>
+			<th>type of seat</th>
+			<th>number of passengers</th>
+			<th></th>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+<div id="search" class="tabcontent">
+  <div class="container">
+
+          <form id="userSearchFlight">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2">Search by </label>
+				
+					<div class="col-sm-5">
+						<input type="radio" name="parametersType" value="destination name">   destination name
+						<input type="radio" name="parametersType" value="country" checked="true">   country
+					</div>
+					
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="from">From</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="from">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="to">To</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="to">
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="dateFlightSearch">Date of flight</label>
+				<div class="col-sm-5">
+					<input type="date" class="form-control" id="dateFlightSearch">
+				</div>
+			</div>
+			
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Search flights" />
+            </div>
+            
+          </form>
+
+    </div>
+    
+    	<h3 id="messageFlightsForUserFound" style="display: none">No flights found!</h3>  
+	
+	
+		<table id="flightsForUserView" class="table table-bordered table-hover" style="display: none" bgcolor="#d9d9d9">
+		<thead>
+			<th>flight number</th>
+			<th>start</th>
+			<th>departure</th>
+			<th>price</th>
+			<th>airplane</th>
+			<th>date of flight</th>
+			<th>class of flight</th>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+    
+    
+</div>
+
+
+<div id="filter" class="tabcontent" >
+    	
+	
+	
+	
+		<form id="filterTable">
+	
+		<table id="flightsForFilterView" class="table table-bordered table-hover" bgcolor="#d9d9d9">
+		<thead>
+			<th>flight number<select id="flightIDs"><option value=""></option></select></th>
+			<th>start</th>
+			<th>departure</th>
+			<th>price</th>
+			<th>airplane</th>
+			<th>date of flight<br/><label>Sort by:</label><select id="dateFlightFilter" class="form-control"><option value="" selected></option><option value="newest">newest date</option></select></th>
+			<th>class of flight<select id="flightClass" class="form-control">
+										<option value="" selected></option>
+								  		<option value="CHARTER">CHARTER</option>
+										<option value="REGIONAL">REGIONAL</option>
+										<option value="TRANSOCEANIC">TRANSOCEANIC</option>
+									</select></th>
+		</thead>
+		<tbody>
+		</tbody>
+
+		</table>
+		
+		</form>
+		
+		<h3 id="messageFlightsForFilterFound" style="display: none">No flights found!</h3>  
+
+</div>
+
+<div id="profile" class="tabcontent">
+
+
+ 	<div class="container">
+      <!-- Horizonatal Form -->
+			<h2>Profile</h2>
+          <form id="editUser">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2" for="username">Username</label>
+					<div class="col-sm-5">
+						<input type="text" required class="form-control" id="username" placeholder="Enter new username">
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="password1">Password</label>
+					<div class="col-sm-5">
+						<input type="password" required class="form-control" id="password1"
+							placeholder="Enter new password">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="password2">Repeat password</label>
+					<div class="col-sm-5">
+						<input type="password" required class="form-control" id="password2"
+							placeholder="Enter repeat password">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="name">Name</label>
+					<div class="col-sm-5">
+						<input type="text" required class="form-control" id="name"
+							placeholder="Enter new name">
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="surname">Surname</label>
+					<div class="col-sm-5">
+						<input type="text" required class="form-control" id="surname"
+							placeholder="Enter new surname">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="phone">Phone</label>
+					<div class="col-sm-5">
+						<input type="text" required class="form-control" id="phone"
+							placeholder="Enter new phone">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="email">Email</label>
+					<div class="col-sm-5">
+						<input type="email" required class="form-control" id="email"
+							placeholder="Enter new email">
+					</div>
+			</div>
+			
+		
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Save changes" />
+            </div>
+            
+          </form>
+
+    </div>
+</div>
+
+
+	<div id="logout" class="tabcontent">
+	</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+           
+</body>
+</html>

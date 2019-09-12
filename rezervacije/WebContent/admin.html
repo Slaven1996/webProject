@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin page</title>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<script type="text/javascript" src="admin.js"></script>
+
+<script src="bootstrap.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<style>
+body {
+	font-family: Arial;
+	background-color: #0000ff;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: #1ad1ff;
+}
+
+label {
+	padding: 5px;
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'users')">Clients</button>
+  <button class="tablinks" onclick="openCity(event, 'newDestination')">Add new destination</button>
+  <button class="tablinks" onclick="openCity(event, 'destinations')">Destinations</button>
+  <button class="tablinks" onclick="openCity(event, 'newFlight')">Add new flight</button>
+  <button class="tablinks" onclick="openCity(event, 'flights')">Flights</button>
+  <button class="tablinks" onclick="openCity(event, 'combineSearch')">Combine search</button>
+  <button class="tablinks" onclick="openCity(event, 'profile')">Profile</button>
+  <button class="tablinks" onclick="openCity(event, 'logout')" id="logout">Log out</button>
+</div>
+
+<div id="users" class="tabcontent">
+
+	<h2>Clients</h2>
+	<h4>Block/Deblock</h4>
+	
+  	<table id="clients" class="table table-bordered table-hover" bgcolor="#d9d9d9">
+		<thead>
+			<th>username</th>
+			<th>name</th>
+			<th>surname</th>
+			<th>phone</th>
+			<th>email</th>
+			<th>activity</th>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+<div id="newDestination" class="tabcontent">
+ 
+ <div class="container">
+      <!-- Horizonatal Form -->
+			<h2>Add new destination</h2>
+          <form id="addDestination">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2" for="nameDestination">Name of destination</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="nameDestination" placeholder="Enter destination name" required>
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="country">Country</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="country"
+							placeholder="Enter country" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="airport">Name of airport</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="airport"
+							placeholder="Enter name of airport" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="code">Code of airport</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="code"
+							placeholder="Enter code of airport" required>
+					</div>
+			</div>
+			
+		
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Add destination" />
+            </div>
+            
+          </form>
+
+    </div>
+ 
+ 
+ 
+</div>
+
+<div id="destinations" class="tabcontent">
+
+	<h2 id="titleDestinations" >Destinations</h2>
+	
+	 <h3 id="messageDestinationsFound" style="display: none">No destinations found!</h3>  
+	
+		
+  	<table id="dest" class="table table-bordered table-hover" bgcolor="#d9d9d9">
+		<thead>
+			<th>name of destination</th>
+			<th>country</th>
+			<th>name of airport</th>
+			<th>code of airport</th>
+			<th>edit/save</th>
+			<th>activity</th>
+
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+
+
+</div>
+
+<div id="newFlight" class="tabcontent">
+
+
+ <div class="container">
+      <!-- Horizonatal Form -->
+			<h2>Add new flight</h2>
+          <form id="addFlight">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2" for="flightID">Number of flight</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="flightID" placeholder="Enter number of flight" required>
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="startDestination">Start destination</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="startDestination"
+							placeholder="Enter start destination" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="departureDestination">Departure destination</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="departureDestination"
+							placeholder="Enter departure destination" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="priceTicket">Price of ticket</label>
+					<div class="col-sm-5">
+						<input type="number" class="form-control" id="priceTicket"
+							placeholder="Enter price ot ticket" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="airplaneModel">Airplane model</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="airplaneModel"
+							placeholder="Enter model of airplane" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="nFirst">Number of seats in first class</label>
+					<div class="col-sm-5">
+						<input type="number" class="form-control" id="nFirst"
+							placeholder="Enter number of seats in first class" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="nBusiness">Number of seats in business class</label>
+					<div class="col-sm-5">
+						<input type="number" class="form-control" id="nBusiness"
+							placeholder="Enter number of seats in business class" required>
+					</div>
+			</div>
+	
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="nEconomic">Number of seats in economic class</label>
+					<div class="col-sm-5">
+						<input type="number" class="form-control" id="nEconomic"
+							placeholder="Enter number of seats in economic class" required>
+					</div>
+			</div>	
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="dateAndTime">Date and time of flight</label>
+					<div class="col-sm-5">
+						<input type="datetime-local" class="form-control" id="dateAndTime"
+							placeholder="Enter date and time of flight" required>
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="classOfFlight">Class of flight</label>
+					<div class="col-sm-5">
+						<select id="classOfFlight" required class="form-control">
+							<option value="CHARTER" selected>CHARTER</option>
+							<option value="REGIONAL">REGIONAL</option>
+							<option value="TRANSOCEANIC">TRANSOCEANIC</option>
+						</select>
+					</div>
+			</div>		
+			
+				
+		
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Add flight" />
+            </div>
+            
+          </form>
+
+    </div>
+</div>
+
+<div id="flights" class="tabcontent">
+
+	<h2 id="titleFlights" >Flights</h2>
+	
+	<h3 id="messageFlightsFound" style="display: none">No flights found!</h3>  
+	
+	
+		<table id="flightsTable" class="table table-bordered table-hover" bgcolor="#d9d9d9">
+		<thead>
+			<th>flight number</th>
+			<th>start</th>
+			<th>departure</th>
+			<th>price</th>
+			<th>airplane</th>
+			<th>number of seats in first class</th>
+			<th>number of seats in business class</th>
+			<th>number of seats in economic class</th>
+			<th>date of flight</th>
+			<th>class of flight</th>
+			<th>edit/save</th>
+			<th>delete</th>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	
+</div>
+
+<div id="combineSearch" class="tabcontent">
+	<div class="container">
+			<h2>Combine search</h2>
+          <form id="adminSearch">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2" for="numFlight">Number of flight</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="numFlight" placeholder="Enter number of flight">
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="begin">Start destination</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="begin"
+							placeholder="Enter start destination">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="end">Departure destination</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="end"
+							placeholder="Enter departure destination">
+					</div>
+			</div>
+			
+
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="countryFlight">Country of flight</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="countryFlight"
+							placeholder="Enter country of flight">
+					</div>
+			</div>
+			
+		
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="flightDate">Date of flight</label>
+					<div class="col-sm-5">
+						<input type="date" class="form-control" id="flightDate"
+							placeholder="Enter date of flight">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="flightClass">Class of flight</label>
+					<div class="col-sm-5">
+						<select id="flightClass" class="form-control">
+							<option value="" selected></option>
+							<option value="CHARTER">CHARTER</option>
+							<option value="REGIONAL">REGIONAL</option>
+							<option value="TRANSOCEANIC">TRANSOCEANIC</option>
+						</select>
+					</div>
+			</div>		
+			
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Search" />
+            </div>
+            
+          </form>
+          
+         <h3 id="messageFlightsForAdminSearchFound" style="display: none">No flights found!</h3>   
+          
+        <table id="flightsForAdminView" class="table table-bordered table-hover" style="display: none" bgcolor="#d9d9d9">
+		<thead>
+			<th>flight number</th>
+			<th>start</th>
+			<th>departure</th>
+			<th>price</th>
+			<th>airplane</th>
+			<th>date of flight</th>
+			<th>class of flight</th>
+		</thead>
+		<tbody>
+		</tbody>
+
+		</table>
+		
+          
+          
+          
+
+    </div>
+
+</div>
+
+<div id="profile" class="tabcontent">
+
+
+ 	<div class="container">
+      <!-- Horizonatal Form -->
+			<h2>Profile</h2>
+          <form id="editUser">
+          	<div class="form-group row">
+					<label class="control-label col-sm-2" for="username">Username</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="username" placeholder="Enter new username">
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="password1">Password</label>
+					<div class="col-sm-5">
+						<input type="password" class="form-control" id="password1"
+							placeholder="Enter new password">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="password2">Repeat password</label>
+					<div class="col-sm-5">
+						<input type="password" class="form-control" id="password2"
+							placeholder="Enter repeat password">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="name">Name</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="name"
+							placeholder="Enter new name">
+					</div>
+			</div>
+			
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="surname">Surname</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="surname"
+							placeholder="Enter new surname">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="phone">Phone</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="phone"
+							placeholder="Enter new phone">
+					</div>
+			</div>
+			
+			<div class="form-group row">
+					<label class="control-label col-sm-2" for="email">Email</label>
+					<div class="col-sm-5">
+						<input type="email" class="form-control" id="email"
+							placeholder="Enter new email">
+					</div>
+			</div>
+			
+		
+            <div class="col-xs-10 col-xs-offset-2">
+              <input type="submit" class="btn btn-primary" value="Save changes" />
+            </div>
+            
+          </form>
+
+    </div>
+</div>
+
+
+	<div id="logout" class="tabcontent">
+	</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

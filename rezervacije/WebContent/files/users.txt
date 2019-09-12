@@ -1,0 +1,3 @@
+slaven|korisnik|Slaven|Garic|065342553|slaven@gmail.com|true
+petar|korisnik|Petar|Petrovic|065664313|petar@gmail.com|true
+mladen|korisnik|Mladen|Mladenovic|065674783|mladen@gmail.com|true

@@ -1,0 +1,2 @@
+nikola|admin|Nikola|Nikolic|065555333|nikola@gmail.com|true
+marko|admin|Marko|Markovic|065474783|marko@gmail.com|true

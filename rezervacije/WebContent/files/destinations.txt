@@ -1,0 +1,7 @@
+Beograd|Srbija|Nikola Tesla|BEG|true
+Njujork|USA|Njujorski|NY|true
+Pariz|Francuska|Pariski|SDG|true
+Moskva|Rusija|Seremetjevo|SHE|true
+Bec|Austrija|Becki|VIE|true
+Tivat|Crna Gora|Tivatski|TI|true
+Kraljevo|Srbija|Morava|MO|true
